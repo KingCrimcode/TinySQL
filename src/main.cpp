@@ -1,5 +1,5 @@
-#include <iostream>
+extern int yyparse();
 
 int main() {
-  std::cout << "Hello World";
+  yyparse();
 }
