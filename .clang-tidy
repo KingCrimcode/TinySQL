@@ -1,0 +1,29 @@
+WarningsAsErrors: ' '
+HeaderFilterRegex: '.*\.hpp'
+FormatStyle: file
+Checks: >
+  bugprone-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  google-global-names-in-headers,
+  -google-readability-casting,
+  google-runtime-operator,
+  misc-*,
+  -misc-no-recursion,
+  -misc-non-private-member-variables-in-classes,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  performance-*,
+  readability-*,
+
+CheckOptions:
+  performance-for-range-copy.WarnOnAllAutoCopies: true
+  performance-inefficient-string-concatenation.StrictMode: true
+  readability-braces-around-statements.ShortStatementLines: 0
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.EnumConstantCase: UPPER_CASE
+  readability-identifier-naming.FunctionCase: camelBack
+  readability-identifier-naming.NamespaceCase: CamelCase
+  readability-identifier-naming.StructCase: CamelCase
