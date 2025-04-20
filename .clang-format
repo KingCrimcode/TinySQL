@@ -5,7 +5,7 @@ AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: true
 AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: AcrossEmptyLines
+# AlignConsecutiveDeclarations: AcrossEmptyLines
 AlignEscapedNewlines: Right
 AlignOperands: false
 AlignTrailingComments: true
@@ -35,6 +35,7 @@ IncludeBlocks: Preserve
 IndentCaseLabels: true
 IndentWidth: 2
 NamespaceIndentation: All
+PackConstructorInitializers: NextLineOnly
 PointerAlignment: Left
 ReflowComments: false
 SortIncludes: CaseSensitive
