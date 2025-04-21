@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Exit script on error
+set -e
+
+# Get latest commit subject
+msg=$(git log -1 --pretty=%s)
+
+# Exit script if no major/minor bump
+if ! grep -Eq '^feat|BREAKING CHANGE|!:' <<< "$msg"; then
+  exit 0
+fi
+
+# Fetch current version from file
+if [ -f VERSION ]; then
+  version=$(cat VERSION)
+else
+  echo "VERSION file not found"
+  exit 0
+fi
+
+# Create tag
+git tag "v$version"
+echo "Created tag: v$version"

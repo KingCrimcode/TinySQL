@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 4.0)
 
-project(TinySQL)
+file(READ "${CMAKE_SOURCE_DIR}/VERSION" VER_RAW)
+string(STRIP ${VER_RAW} VER)
+
+project(TinySQL VERSION ${VER})
 
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+add_compile_definitions(TINYSQL_VERSION="${VER}")
 
 add_compile_options(
   -Wall
