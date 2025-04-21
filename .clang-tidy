@@ -6,6 +6,7 @@ Checks: >
   concurrency-*,
   cppcoreguidelines-*,
   -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   google-global-names-in-headers,
   -google-readability-casting,
   google-runtime-operator,
