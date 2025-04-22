@@ -6,6 +6,8 @@
 %option nounput
 %option noinput
 
+/* For line number in error message */
+/* Could remove, no need to yet though */
 %option yylineno
 
 %%

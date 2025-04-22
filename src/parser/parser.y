@@ -46,7 +46,7 @@ SelectQuery* select_query;
 
 %%
 cmd
-  : select_stmt { /* TODO */ }
+  : select_stmt { std::cout << "Placeholder SELECT query text\n"; }
   ;
 
 column_list
