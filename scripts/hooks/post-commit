@@ -6,11 +6,6 @@ set -e
 # Get latest commit subject
 msg=$(git log -1 --pretty=%s)
 
-# Exit script if no major/minor bump
-if ! grep -Eq '^feat|BREAKING CHANGE|!:' <<< "$msg"; then
-  exit 0
-fi
-
 # Fetch current version from file
 if [ -f VERSION ]; then
   version=$(cat VERSION)
@@ -19,6 +14,46 @@ else
   exit 0
 fi
 
-# Create tag
-git tag "v$version"
-echo "Created tag: v$version"
+# Create tag if minor/major version bump
+if [[ "$msg" =~ ^chore\(version\): ]]; then
+  last_change=$(git log -2 --pretty=%s | tail -1)
+  if [[ "$last_change" =~ ^feat|BREAKING\ CHANGE|!:\  ]]; then
+    git tag "v$version"
+  fi
+  exit 0
+fi
+
+# Determine bump level
+bump="none"
+if [[ "$msg" =~ BREAKING\ CHANGE|!:\  ]]; then
+  bump="major"
+elif [[ "$msg" =~ ^feat ]]; then
+  bump="minor"
+elif [[ "$msg" =~ ^fix ]]; then
+  bump="patch"
+fi
+
+# Exit script if no bump
+if [ "$bump" == "none" ]; then
+  exit 0
+fi
+
+# Unpack version in 3 components
+IFS='.' read -r major minor patch <<< "$version"
+
+# Perform bump
+case $bump in
+  major)
+    major=$((major + 1)); minor=0; patch=0;;
+  minor)
+    minor=$((minor + 1)); patch=0;;
+  patch)
+    patch=$((patch + 1));;
+esac
+
+new_version="${major}.${minor}.${patch}"
+
+# Update version file
+echo "$new_version" > VERSION
+git add VERSION
+git commit -m "chore(version): Bump version to $new_version"
