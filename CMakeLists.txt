@@ -26,7 +26,11 @@ bison_target(Parser src/parser/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp D
 flex_target(Lexer src/parser/lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp)
 add_flex_bison_dependency(Lexer Parser)
 
-file(GLOB_RECURSE SRCFILES "src/*.cpp")
+file(GLOB_RECURSE SRCFILES
+  "src/*.cpp"
+  "src/parser/*.cpp"
+  "src/utils/*.cpp"
+)
 
 add_executable(
   tinysql
@@ -39,4 +43,5 @@ target_include_directories(tinysql PRIVATE
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/src/parser
   ${CMAKE_BINARY_DIR}
+  ${CMAKE_SOURCE_DIR}/src/utils
 )
