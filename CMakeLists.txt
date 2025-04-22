@@ -22,8 +22,8 @@ add_compile_options(
 
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
-bison_target(Parser src/parser/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/parser.hpp)
-flex_target(Lexer src/parser/lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp)
+bison_target(Parser src/parser/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/headers/parser.hpp)
+flex_target(Lexer src/parser/lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/headers/lexer.hpp)
 add_flex_bison_dependency(Lexer Parser)
 
 file(GLOB_RECURSE SRCFILES
@@ -42,6 +42,6 @@ add_executable(
 target_include_directories(tinysql PRIVATE
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/src/parser
-  ${CMAKE_BINARY_DIR}
   ${CMAKE_SOURCE_DIR}/src/utils
+  ${CMAKE_CURRENT_BINARY_DIR}/headers
 )
