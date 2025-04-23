@@ -1,5 +1,6 @@
-#include "stringUtils.hpp"
 #include <string>
+
+#include "stringUtils.hpp"
 
 namespace Tinysql::Utils {
   std::string trim(const std::string& str) {
