@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 
+#include "ast.hpp"
 #include "enums.hpp"
 #include "lexer.hpp"
 #include "stringUtils.hpp"
@@ -12,6 +13,7 @@
 
 using namespace Tinysql::Utils;
 
+extern AST::ASTNode* astRoot;
 extern int yyparse();
 
 namespace {
@@ -57,6 +59,8 @@ namespace {
     yyparse();
     // Free the buffer space
     yy_delete_buffer(buffer);
+
+    astRoot->print();
   }
 }
 

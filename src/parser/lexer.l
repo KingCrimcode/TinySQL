@@ -1,4 +1,5 @@
 %{
+#include <string>
 #include "parser.hpp"
 %}
 
@@ -11,29 +12,37 @@
 %option yylineno
 
 %%
-CREATE                    return CREATE;
-DROP                      return DROP;
 ALTER                     return ALTER;
-
-SELECT                    return SELECT;
-INSERT                    return INSERT;
-UPDATE                    return UPDATE;
+AND                       return AND;
+CREATE                    return CREATE;
+DATABASE                  return DATABASE;
 DELETE                    return DELETE;
-
+DROP                      return DROP;
 FROM                      return FROM;
+INDEX                     return INDEX;
+INSERT                    return INSERT;
+INT                       return INT;
 INTO                      return INTO;
+NOT                       return NOT;
+OR                        return OR;
+SELECT                    return SELECT;
+TABLE                     return TABLE;
+UPDATE                    return UPDATE;
+VALUES                    return VALUES;
+VARCHAR                   return VARCHAR;
 WHERE                     return WHERE;
 
-DATABASE                  return DATABASE;
-TABLE                     return TABLE;
-INDEX                     return INDEX;
+\'([^\'\n]*)\'            { yylval.string = new std::string(yytext, yyleng); return STRING; }
+\"([^\"\n]*)\"            { yylval.string = new std::string(yytext, yyleng); return STRING; }
 
-OR                        return OR;
-AND                       return AND;
-NOT                       return NOT;
+[0-9]+                    { yylval.string = new std::string(yytext, yyleng); return INTEGER; }
+[0-9]+"."[0-9]+           { yylval.string = new std::string(yytext, yyleng); return FLOAT; }
 
-[a-zA-Z_][a-zA-Z0-9_]*    { yylval.str = strdup(yytext); return IDENTIFIER; }
-[0-9]+                    { yylval.num = atoi(yytext); return NUMBER; }
+[a-zA-Z_][a-zA-Z0-9_]*    { yylval.string = new std::string(yytext, yyleng); return NAME; }
+
+#.*                       {}
+"--"[ \t].*               {}
+
 [ \t\n]+                  /* whitespace */
 .                         { return *yytext; }
 %%
